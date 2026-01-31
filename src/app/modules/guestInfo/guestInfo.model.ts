@@ -30,11 +30,6 @@ const faqItemSchema = new Schema<TFaqItem>({
 
 const guestInfoSchema = new Schema<TGuestInfo>(
   {
-    gallery: {
-      title: { type: String },
-      subtitle: { type: String },
-      images: [{ type: String }],
-    },
     accommodation: {
       title: { type: String },
       subtitle: { type: String },

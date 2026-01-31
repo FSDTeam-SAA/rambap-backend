@@ -12,7 +12,6 @@ router.get('/', GuestInfoControllers.getGuestInfo);
 router.put(
   '/',
   auth(),
-  fileUploader.upload.array('files'),
   validateRequest(GuestInfoVal.updateGuestInfo),
   GuestInfoControllers.updateGuestInfo,
 );

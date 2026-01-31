@@ -5,7 +5,7 @@ export interface IUser {
   lastName: string;
   email: string;
   password: string;
-  role: keyof typeof userRole; // 'admin' | 'client'
+  // role: keyof typeof userRole; // 'admin' | 'client'
   otp?: string;
   otpExpires?: Date;
 }

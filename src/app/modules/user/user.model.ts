@@ -23,12 +23,12 @@ const userSchema = new Schema<IUser>(
       required: true,
       select: 0,
     },
-    role: {
-      type: String,
-      enum: Object.keys(userRole),
-      default: userRole.client,
-      select: 0,
-    },
+    // role: {
+    //   type: String,
+    //   enum: Object.keys(userRole),
+    //   default: userRole.client,
+    //   select: 0,
+    // },
     otp: {
       type: String,
       select: 0,

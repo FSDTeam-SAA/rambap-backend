@@ -23,7 +23,7 @@ const getHero = catchAsync(async (req: Request, res: Response) => {
 const updateHero = catchAsync(async (req: Request, res: Response) => {
   if (req.file) {
     const uploadResult = await fileUploader.uploadToCloudinary(req.file);
-    req.body.heroVideo = uploadResult.url;
+    req.body.videoUrl = uploadResult.url;
   }
   const result = await HeroServices.updateHero(req.body);
 

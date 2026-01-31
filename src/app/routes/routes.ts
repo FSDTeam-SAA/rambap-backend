@@ -6,6 +6,7 @@ import { HeroRoutes } from '../modules/hero/hero.route';
 import { RsvpRoutes } from '../modules/rsvp/rsvp.route';
 import { DetailsRoutes } from '../modules/weddingDetails/details.route';
 import { FooterRoutes } from '../modules/footer/footer.route';
+import { GalleryRoutes } from '../modules/gallery/gallery.route';
 
 const router = Router();
 
@@ -37,6 +38,10 @@ const moduleRoutes = [
   {
     path: '/footer',
     route: FooterRoutes,
+  },
+  {
+    path: '/gallery',
+    route: GalleryRoutes,
   },
 ];
 

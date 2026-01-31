@@ -32,13 +32,13 @@ const loginUser = async (payload: Partial<IUser>) => {
   if (!isPasswordMatched) throw new AppError(401, 'Password not matched');
 
   const accessToken = jwtHelpers.genaretToken(
-    { id: user._id, role: user.role, email: user.email },
+    { id: user._id, email: user.email },
     config.jwt.accessTokenSecret as Secret,
     config.jwt.accessTokenExpires,
   );
 
   const refreshToken = jwtHelpers.genaretToken(
-    { id: user._id, role: user.role, email: user.email },
+    { id: user._id, email: user.email },
     config.jwt.refreshTokenSecret as Secret,
     config.jwt.refreshTokenExpires,
   );
@@ -97,12 +97,12 @@ const resetPassword = async (email: string, newPassword: string) => {
 
   // Auto-login after reset
   const accessToken = jwtHelpers.genaretToken(
-    { id: user._id, role: user.role, email: user.email },
+    { id: user._id, email: user.email },
     config.jwt.accessTokenSecret as Secret,
     config.jwt.accessTokenExpires,
   );
   const refreshToken = jwtHelpers.genaretToken(
-    { id: user._id, role: user.role, email: user.email },
+    { id: user._id, email: user.email },
     config.jwt.refreshTokenSecret as Secret,
     config.jwt.refreshTokenExpires,
   );

@@ -1,9 +1,4 @@
 // Sub-types
-export type TGallery = {
-  title?: string;
-  subtitle?: string;
-  images: string[];
-};
 
 export type TLinkItem = {
   title: string;
@@ -49,7 +44,6 @@ export type TGifts = {
 
 // Main Interface
 export type TGuestInfo = {
-  gallery?: TGallery;
   accommodation: TAccommodation;
   carRental: TCarRental;
   dressCode: TDressCode;

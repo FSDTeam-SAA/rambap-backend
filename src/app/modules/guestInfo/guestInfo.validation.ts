@@ -22,14 +22,6 @@ const faqItem = z.object({
 // Main Schema
 const updateGuestInfo = z.object({
   body: z.object({
-    gallery: z
-      .object({
-        title: z.string().optional(),
-        subtitle: z.string().optional(),
-        images: z.array(z.string().url()).optional(),
-      })
-      .optional(),
-
     accommodation: z
       .object({
         title: z.string().optional(),
