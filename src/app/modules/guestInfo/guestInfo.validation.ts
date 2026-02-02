@@ -3,7 +3,6 @@ import { z } from 'zod';
 // Sub-Schemas
 const linkItem = z.object({
   title: z.string().optional(),
-  icon: z.string().optional(),
   linkUrl: z.string().url().optional(),
   description: z.string().optional(),
 });
@@ -11,7 +10,6 @@ const linkItem = z.object({
 const dressCodeItem = z.object({
   title: z.string().optional(),
   description: z.string().optional(),
-  icon: z.string().optional(),
 });
 
 const faqItem = z.object({

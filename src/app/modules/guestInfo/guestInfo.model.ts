@@ -10,7 +10,6 @@ import {
 
 const linkItemSchema = new Schema<TLinkItem>({
   title: { type: String, required: true },
-  icon: { type: String },
   linkUrl: { type: String, required: true },
   description: { type: String },
 });
@@ -18,7 +17,6 @@ const linkItemSchema = new Schema<TLinkItem>({
 const dressCodeItemSchema = new Schema<TDressCodeItem>({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  icon: { type: String },
 });
 
 const faqItemSchema = new Schema<TFaqItem>({

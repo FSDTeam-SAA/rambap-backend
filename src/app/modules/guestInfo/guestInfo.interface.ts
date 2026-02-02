@@ -2,7 +2,6 @@
 
 export type TLinkItem = {
   title: string;
-  icon?: string;
   linkUrl: string; // The actual link
   description?: string; // Optional helper text
 };
@@ -22,7 +21,6 @@ export type TCarRental = {
 export type TDressCodeItem = {
   title: string; // e.g., "Formal and Traditional Wear"
   description: string; // e.g., "Dress your best..."
-  icon?: string;
 };
 
 export type TDressCode = {
