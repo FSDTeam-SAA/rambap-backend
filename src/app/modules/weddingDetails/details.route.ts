@@ -3,6 +3,7 @@ import { DetailsControllers } from './details.controller';
 import validateRequest from '../../middlewares/validateRequest';
 import { DetailsVal } from './details.validation';
 import auth from '../../middlewares/auth';
+import { fileUploader } from '../../helper/fileUploder';
 
 const router = express.Router();
 
@@ -11,6 +12,7 @@ router.get('/program', DetailsControllers.getProgram);
 router.put(
   '/program',
   auth(),
+  fileUploader.upload.any(), // Allows files like "items[0][icon]"
   validateRequest(DetailsVal.updateProgram),
   DetailsControllers.updateProgram,
 );

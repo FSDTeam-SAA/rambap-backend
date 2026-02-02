@@ -17,10 +17,24 @@ const menuCat = z.object({
 // Main Schemas
 const updateProgram = z.object({
   body: z.object({
-    title: z.string().optional(),
-    subtitle: z.string().optional(),
-    items: z.array(programItem).optional(),
-    printUrl: z.string().url({ message: 'Invalid URL' }).optional(),
+    data: z
+      .string()
+      .transform((str, ctx) => {
+        try {
+          return JSON.parse(str);
+        } catch (e) {
+          ctx.addIssue({ code: 'custom', message: 'Invalid JSON format' });
+          return z.NEVER;
+        }
+      })
+      .pipe(
+        z.object({
+          title: z.string().optional(),
+          subtitle: z.string().optional(),
+          items: z.array(programItem).optional(),
+          printUrl: z.string().url({ message: 'Invalid URL' }).optional(),
+        }),
+      ),
   }),
 });
 

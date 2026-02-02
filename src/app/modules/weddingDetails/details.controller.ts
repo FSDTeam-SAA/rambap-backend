@@ -3,6 +3,7 @@ import { DetailsServices } from './details.service';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import AppError from '../../error/appError';
+import { fileUploader } from '../../helper/fileUploder';
 
 // Program Controllers
 const getProgram = catchAsync(async (req: Request, res: Response) => {
@@ -18,12 +19,46 @@ const getProgram = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateProgram = catchAsync(async (req: Request, res: Response) => {
+  // 1. Parse JSON data if sent as string (common in FormData)
+  if (req.body.data) {
+    req.body = JSON.parse(req.body.data);
+  }
+
+  // 2. Handle Files (Icons)
+  if (req.files && Array.isArray(req.files)) {
+    const files = req.files as Express.Multer.File[];
+
+    // Upload to Cloudinary
+    const uploadPromises = files.map(async (file) => {
+      const uploadRes = await fileUploader.uploadToCloudinary(file);
+      return {
+        fieldname: file.fieldname, // e.g., "items[0][icon]"
+        url: uploadRes.url,
+      };
+    });
+
+    const results = await Promise.all(uploadPromises);
+
+    // 3. Assign URLs to correct item index
+    results.forEach((item) => {
+      // Regex to extract index: matches "items[0][icon]"
+      const match = item.fieldname.match(/items\[(\d+)\]\[icon\]/);
+
+      if (match && req.body.items) {
+        const index = parseInt(match[1]!, 10);
+        if (req.body.items[index]) {
+          req.body.items[index].icon = item.url;
+        }
+      }
+    });
+  }
+
   const result = await DetailsServices.updateProgram(req.body);
 
   sendResponse(res, {
     statusCode: 200,
     success: true,
-    message: 'Program updated',
+    message: 'Program updated successfully',
     data: result,
   });
 });

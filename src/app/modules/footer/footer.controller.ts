@@ -7,10 +7,6 @@ import AppError from '../../error/appError';
 const getFooter = catchAsync(async (req: Request, res: Response) => {
   const result = await FooterServices.getFooter();
 
-  if (!result) {
-    throw new AppError(404, 'Footer content not found');
-  }
-
   sendResponse(res, {
     statusCode: 200,
     success: true,
