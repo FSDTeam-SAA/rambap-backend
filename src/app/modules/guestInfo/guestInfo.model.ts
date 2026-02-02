@@ -9,8 +9,8 @@ import {
 // Sub-Schemas
 
 const linkItemSchema = new Schema<TLinkItem>({
-  title: { type: String, required: true },
-  linkUrl: { type: String, required: true },
+  title: { type: String },
+  linkUrl: { type: String },
   description: { type: String },
 });
 

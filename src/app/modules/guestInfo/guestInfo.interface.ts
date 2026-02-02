@@ -1,8 +1,8 @@
 // Sub-types
 
 export type TLinkItem = {
-  title: string;
-  linkUrl: string; // The actual link
+  title?: string;
+  linkUrl?: string; // The actual link
   description?: string; // Optional helper text
 };
 
