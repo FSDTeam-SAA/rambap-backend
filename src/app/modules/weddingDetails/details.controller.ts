@@ -19,9 +19,9 @@ const getProgram = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateProgram = catchAsync(async (req: Request, res: Response) => {
-  // 1. Parse JSON data if sent as string (common in FormData)
-  if (req.body.data) {
-    req.body = JSON.parse(req.body.data);
+  // 1. Parse 'items' if it is a string (Postman sends arrays as JSON strings in form-data)
+  if (req.body.items && typeof req.body.items === 'string') {
+    req.body.items = JSON.parse(req.body.items);
   }
 
   // 2. Handle Files (Icons)
@@ -46,6 +46,7 @@ const updateProgram = catchAsync(async (req: Request, res: Response) => {
 
       if (match && req.body.items) {
         const index = parseInt(match[1]!, 10);
+        // Ensure the item exists at that index before assigning
         if (req.body.items[index]) {
           req.body.items[index].icon = item.url;
         }

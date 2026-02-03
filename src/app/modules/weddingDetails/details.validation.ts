@@ -17,7 +17,12 @@ const menuCat = z.object({
 // Main Schemas
 const updateProgram = z.object({
   body: z.object({
-    data: z
+    title: z.string().optional(),
+    subtitle: z.string().optional(),
+    printUrl: z.string().url({ message: 'Invalid URL' }).optional(),
+
+    // Validate 'items' as a JSON string that parses into the array
+    items: z
       .string()
       .transform((str, ctx) => {
         try {
@@ -27,13 +32,8 @@ const updateProgram = z.object({
           return z.NEVER;
         }
       })
-      .pipe(
-        z.object({
-          title: z.string().optional(),
-          subtitle: z.string().optional(),
-          items: z.array(programItem).optional(),
-        }),
-      ),
+      .pipe(z.array(programItem))
+      .optional(),
   }),
 });
 
