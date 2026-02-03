@@ -3,7 +3,6 @@ export type TDayProgramItem = {
   title: string;
   description: string;
   icon?: string;
-  mapUrl?: string;
 };
 
 export type TDayProgram = {

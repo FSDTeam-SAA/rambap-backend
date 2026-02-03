@@ -6,5 +6,4 @@ export type TMenuCategory = {
 export type TWeddingMenu = {
   title?: string; // Main title "Wedding Menu"
   menuSections: TMenuCategory[];
-  printMenuUrl?: string; // For the "Print Menu" button at bottom
 };

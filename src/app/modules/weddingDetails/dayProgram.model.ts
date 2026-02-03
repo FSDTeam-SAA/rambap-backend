@@ -6,7 +6,6 @@ const dayProgramItemSchema = new Schema<TDayProgramItem>({
   title: { type: String, required: true },
   description: { type: String, required: true },
   icon: { type: String },
-  mapUrl: { type: String },
 });
 
 const dayProgramSchema = new Schema<TDayProgram>(

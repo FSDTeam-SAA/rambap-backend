@@ -10,7 +10,6 @@ const weddingMenuSchema = new Schema<TWeddingMenu>(
   {
     title: { type: String },
     menuSections: [menuCategorySchema],
-    printMenuUrl: { type: String },
   },
   {
     timestamps: true,

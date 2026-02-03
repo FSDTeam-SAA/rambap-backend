@@ -6,7 +6,6 @@ const programItem = z.object({
   title: z.string().optional(),
   description: z.string().optional(),
   icon: z.string().optional(),
-  mapUrl: z.string().url({ message: 'Invalid URL' }).optional(),
 });
 
 const menuCat = z.object({
@@ -32,7 +31,6 @@ const updateProgram = z.object({
           title: z.string().optional(),
           subtitle: z.string().optional(),
           items: z.array(programItem).optional(),
-          printUrl: z.string().url({ message: 'Invalid URL' }).optional(),
         }),
       ),
   }),
@@ -42,7 +40,6 @@ const updateMenu = z.object({
   body: z.object({
     title: z.string().optional(),
     menuSections: z.array(menuCat).optional(),
-    printMenuUrl: z.string().url({ message: 'Invalid URL' }).optional(),
   }),
 });
 
