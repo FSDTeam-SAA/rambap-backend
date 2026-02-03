@@ -6,6 +6,7 @@ const programItem = z.object({
   title: z.string().optional(),
   description: z.string().optional(),
   icon: z.string().optional(),
+  mapUrl: z.string().url({ message: 'Invalid URL' }).optional(),
 });
 
 const menuCat = z.object({

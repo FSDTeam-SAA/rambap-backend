@@ -3,11 +3,11 @@ export type TDayProgramItem = {
   title: string;
   description: string;
   icon?: string;
+  mapUrl?: string;
 };
 
 export type TDayProgram = {
   title?: string;
   subtitle?: string;
   items: TDayProgramItem[];
-  printUrl?: string; // Added field for printing the program
 };
