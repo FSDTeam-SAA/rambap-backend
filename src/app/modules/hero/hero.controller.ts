@@ -6,7 +6,9 @@ import AppError from '../../error/appError';
 import { fileUploader } from '../../helper/fileUploder';
 
 const getHero = catchAsync(async (req: Request, res: Response) => {
-  const result = await HeroServices.getHero();
+  const language = (req.query.lang as string) || 'english';
+
+  const result = await HeroServices.getHero(language);
 
   if (!result) {
     throw new AppError(404, 'Hero section data not found');
@@ -21,11 +23,14 @@ const getHero = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateHero = catchAsync(async (req: Request, res: Response) => {
+  const language = (req.query.lang as string) || 'english';
+
   if (req.file) {
     const uploadResult = await fileUploader.uploadToCloudinary(req.file);
     req.body.videoUrl = uploadResult.url;
   }
-  const result = await HeroServices.updateHero(req.body);
+
+  const result = await HeroServices.updateHero(req.body, language);
 
   sendResponse(res, {
     statusCode: 200,
