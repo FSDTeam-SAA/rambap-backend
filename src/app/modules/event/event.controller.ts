@@ -5,7 +5,8 @@ import sendResponse from '../../utils/sendResponse';
 import AppError from '../../error/appError';
 
 const getEvent = catchAsync(async (req: Request, res: Response) => {
-  const result = await EventServices.getEvent();
+  const language = (req.query.lang as string) || 'english';
+  const result = await EventServices.getEvent(language);
 
   if (!result) {
     throw new AppError(404, 'Event section data not found');
@@ -20,7 +21,8 @@ const getEvent = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateEvent = catchAsync(async (req: Request, res: Response) => {
-  const result = await EventServices.updateEvent(req.body);
+  const language = (req.query.lang as string) || 'english';
+  const result = await EventServices.updateEvent(req.body, language);
 
   sendResponse(res, {
     statusCode: 200,

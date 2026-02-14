@@ -1,13 +1,19 @@
 import { GuestInfo } from './guestInfo.model';
 import { TGuestInfo } from './guestInfo.interface';
+import { GuestInfoFr } from './guestInfo.model.fr';
 
-const getGuestInfo = async () => {
-  const result = await GuestInfo.findOne();
+const getGuestInfo = async (language: string = 'english') => {
+  const Model = language === 'france' ? GuestInfoFr : GuestInfo;
+  const result = await Model.findOne();
   return result;
 };
 
-const updateGuestInfo = async (payload: Partial<TGuestInfo>) => {
-  const result = await GuestInfo.findOneAndUpdate({}, payload, {
+const updateGuestInfo = async (
+  payload: Partial<TGuestInfo>,
+  language: string = 'english',
+) => {
+  const Model = language === 'france' ? GuestInfoFr : GuestInfo;
+  const result = await Model.findOneAndUpdate({}, payload, {
     new: true,
     upsert: true,
     runValidators: true,

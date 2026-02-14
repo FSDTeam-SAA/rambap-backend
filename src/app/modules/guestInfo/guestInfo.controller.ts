@@ -5,7 +5,8 @@ import sendResponse from '../../utils/sendResponse';
 import AppError from '../../error/appError';
 
 const getGuestInfo = catchAsync(async (req: Request, res: Response) => {
-  const result = await GuestInfoServices.getGuestInfo();
+  const language = (req.query.lang as string) || 'english';
+  const result = await GuestInfoServices.getGuestInfo(language);
 
   if (!result) {
     throw new AppError(404, 'Guest info not found');
@@ -20,7 +21,8 @@ const getGuestInfo = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateGuestInfo = catchAsync(async (req: Request, res: Response) => {
-  const result = await GuestInfoServices.updateGuestInfo(req.body);
+  const language = (req.query.lang as string) || 'english';
+  const result = await GuestInfoServices.updateGuestInfo(req.body, language);
 
   sendResponse(res, {
     statusCode: 200,

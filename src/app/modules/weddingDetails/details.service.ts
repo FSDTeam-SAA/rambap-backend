@@ -2,15 +2,22 @@ import { DayProgram } from './dayProgram.model';
 import { WeddingMenu } from './weddingMenu.model';
 import { TDayProgram } from './dayProgram.interface';
 import { TWeddingMenu } from './weddingMenu.interface';
+import { DayProgramFr } from './dayProgram.model.fr';
+import { WeddingMenuFr } from './weddingMenu.model.fr';
 
 // Program Functions
-const getProgram = async () => {
-  const result = await DayProgram.findOne();
+const getProgram = async (language: string = 'english') => {
+  const Model = language === 'france' ? DayProgramFr : DayProgram;
+  const result = await Model.findOne();
   return result;
 };
 
-const updateProgram = async (payload: Partial<TDayProgram>) => {
-  const result = await DayProgram.findOneAndUpdate({}, payload, {
+const updateProgram = async (
+  payload: Partial<TDayProgram>,
+  language: string = 'english',
+) => {
+  const Model = language === 'france' ? DayProgramFr : DayProgram;
+  const result = await Model.findOneAndUpdate({}, payload, {
     new: true,
     upsert: true,
     runValidators: true,
@@ -19,13 +26,18 @@ const updateProgram = async (payload: Partial<TDayProgram>) => {
 };
 
 // Menu Functions
-const getMenu = async () => {
-  const result = await WeddingMenu.findOne();
+const getMenu = async (language: string = 'english') => {
+  const Model = language === 'france' ? WeddingMenuFr : WeddingMenu;
+  const result = await Model.findOne();
   return result;
 };
 
-const updateMenu = async (payload: Partial<TWeddingMenu>) => {
-  const result = await WeddingMenu.findOneAndUpdate({}, payload, {
+const updateMenu = async (
+  payload: Partial<TWeddingMenu>,
+  language: string = 'english',
+) => {
+  const Model = language === 'france' ? WeddingMenuFr : WeddingMenu;
+  const result = await Model.findOneAndUpdate({}, payload, {
     new: true,
     upsert: true,
     runValidators: true,

@@ -7,7 +7,9 @@ import { fileUploader } from '../../helper/fileUploder';
 
 // Program Controllers
 const getProgram = catchAsync(async (req: Request, res: Response) => {
-  const result = await DetailsServices.getProgram();
+  const language = (req.query.lang as string) || 'english';
+
+  const result = await DetailsServices.getProgram(language);
   if (!result) throw new AppError(404, 'Data not found');
 
   sendResponse(res, {
@@ -19,6 +21,8 @@ const getProgram = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateProgram = catchAsync(async (req: Request, res: Response) => {
+  const language = (req.query.lang as string) || 'english';
+
   // 1. Parse 'items' if it is a string (Postman sends arrays as JSON strings in form-data)
   if (req.body.items && typeof req.body.items === 'string') {
     req.body.items = JSON.parse(req.body.items);
@@ -54,8 +58,7 @@ const updateProgram = catchAsync(async (req: Request, res: Response) => {
     });
   }
 
-  const result = await DetailsServices.updateProgram(req.body);
-
+  const result = await DetailsServices.updateProgram(req.body, language);
   sendResponse(res, {
     statusCode: 200,
     success: true,
@@ -66,7 +69,8 @@ const updateProgram = catchAsync(async (req: Request, res: Response) => {
 
 // Menu Controllers
 const getMenu = catchAsync(async (req: Request, res: Response) => {
-  const result = await DetailsServices.getMenu();
+  const language = (req.query.lang as string) || 'english';
+  const result = await DetailsServices.getMenu(language);
   if (!result) throw new AppError(404, 'Data not found');
 
   sendResponse(res, {
@@ -78,7 +82,8 @@ const getMenu = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateMenu = catchAsync(async (req: Request, res: Response) => {
-  const result = await DetailsServices.updateMenu(req.body);
+  const language = (req.query.lang as string) || 'english';
+  const result = await DetailsServices.updateMenu(req.body, language);
 
   sendResponse(res, {
     statusCode: 200,

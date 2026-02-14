@@ -4,7 +4,8 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 
 const createRsvp = catchAsync(async (req: Request, res: Response) => {
-  const result = await RsvpServices.createRsvp(req.body);
+  const language = (req.query.lang as string) || 'english';
+  const result = await RsvpServices.createRsvp(req.body, language);
 
   sendResponse(res, {
     statusCode: 201,
@@ -15,7 +16,8 @@ const createRsvp = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getRsvps = catchAsync(async (req: Request, res: Response) => {
-  const result = await RsvpServices.getRsvps();
+  const language = (req.query.lang as string) || 'english';
+  const result = await RsvpServices.getRsvps(language);
 
   sendResponse(res, {
     statusCode: 200,
