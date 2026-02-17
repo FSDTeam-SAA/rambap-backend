@@ -20,6 +20,9 @@ const heroSchema = new Schema<THero>(
     bottomMessage: {
       type: String,
     },
+    address: {
+      type: String,
+    },
     videoUrl: {
       type: String,
     },

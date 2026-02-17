@@ -4,6 +4,7 @@ export type THero = {
   partnerTwo: string;
   weddingDate: string;
   bottomMessage?: string;
+  address?: string;
   videoUrl?: string;
   countdownTitle?: string;
   countdownSubtitle?: string;
