@@ -42,6 +42,18 @@ const loginUser = catchAsync(async (req, res) => {
   });
 });
 
+const refreshToken = catchAsync(async (req, res) => {
+  const { refreshToken } = req.body;
+  const result = await authService.refreshToken(refreshToken);
+
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Access token refreshed successfully',
+    data: { accessToken: result.accessToken },
+  });
+});
+
 const forgotPassword = catchAsync(async (req, res) => {
   const { email } = req.body;
   const result = await authService.forgotPassword(email);
@@ -88,18 +100,6 @@ const resetPassword = catchAsync(async (req, res) => {
   });
 });
 
-// const refreshToken = catchAsync(async (req, res) => {
-//   const { refreshToken } = req.body;
-//   const result = await authService.refreshToken(refreshToken);
-
-//   sendResponse(res, {
-//     statusCode: 200,
-//     success: true,
-//     message: 'Access token refreshed successfully',
-//     data: result,
-//   });
-// });
-
 // const logoutUser = catchAsync(async (req, res) => {
 //   res.clearCookie('refreshToken');
 //   sendResponse(res, {
@@ -129,10 +129,10 @@ const resetPassword = catchAsync(async (req, res) => {
 export const authController = {
   registerUser,
   loginUser,
+  refreshToken,
   forgotPassword,
   verifyEmail,
   resetPassword,
-  // refreshToken,
   // logoutUser,
   // changePassword,
 };

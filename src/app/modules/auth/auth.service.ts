@@ -47,6 +47,25 @@ const loginUser = async (payload: Partial<IUser>) => {
   return { accessToken, refreshToken, user: result };
 };
 
+const refreshToken = async (token: string) => {
+  const varifiedToken = jwtHelpers.verifyToken(
+    token,
+    config.jwt.refreshTokenSecret as Secret,
+  ) as JwtPayload;
+
+  const user = await User.findById(varifiedToken.id);
+  if (!user) throw new AppError(401, 'User not found');
+
+  const accessToken = jwtHelpers.genaretToken(
+    { id: user._id, email: user.email },
+    config.jwt.accessTokenSecret as Secret,
+    config.jwt.accessTokenExpires,
+  );
+
+  const { password, ...result } = user.toObject();
+  return { accessToken, user: result };
+};
+
 const forgotPassword = async (email: string) => {
   const user = await User.findOne({ email });
   if (!user) throw new AppError(401, 'User not found');
@@ -115,25 +134,6 @@ const resetPassword = async (email: string, newPassword: string) => {
   };
 };
 
-// const refreshToken = async (token: string) => {
-//   const varifiedToken = jwtHelpers.verifyToken(
-//     token,
-//     config.jwt.refreshTokenSecret as Secret,
-//   ) as JwtPayload;
-
-//   const user = await User.findById(varifiedToken.id);
-//   if (!user) throw new AppError(401, 'User not found');
-
-//   const accessToken = jwtHelpers.genaretToken(
-//     { id: user._id, role: user.role, email: user.email },
-//     config.jwt.accessTokenSecret as Secret,
-//     config.jwt.accessTokenExpires,
-//   );
-
-//   const { password, ...result } = user.toObject();
-//   return { accessToken, user: result };
-// };
-
 // const changePassword = async (
 //   userId: string,
 //   oldPassword: string,
@@ -153,9 +153,9 @@ const resetPassword = async (email: string, newPassword: string) => {
 export const authService = {
   registerUser,
   loginUser,
+  refreshToken,
   forgotPassword,
   verifyEmail,
   resetPassword,
-  // refreshToken,
   // changePassword,
 };
