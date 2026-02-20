@@ -12,7 +12,7 @@ const sendMailer = async (email: string, subject?: string, html?: string) => {
     },
   });
   const info = await transporter.sendMail({
-    from: `"Native Tongue" ${config.email.from}`,
+    from: `"Rambap" ${config.email.from}`,
     to: email,
     subject,
     html,
