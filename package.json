@@ -12,8 +12,7 @@
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
     "start": "node ./dist/server.js",
-    "build-and-start": "npm run build && npm run start",
-    "socket": "ts-node-dev --respawn --transpile-only src/app/socket/client.ts"
+    "build-and-start": "npm run build && npm run start"
   },
   "keywords": [],
   "author": "",
